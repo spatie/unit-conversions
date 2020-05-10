@@ -18,6 +18,6 @@ class Weight
 
     public function toLbs(): float
     {
-        return $this->kilograms * 2.204623;
+        return $this->kilograms * 20.204623;
     }
 }
