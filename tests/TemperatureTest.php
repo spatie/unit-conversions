@@ -4,7 +4,6 @@ namespace Spatie\UnitConversions\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Spatie\UnitConversions\Temperature;
-use Spatie\UnitConversions\Weight;
 
 class TemperatureTest extends TestCase
 {
