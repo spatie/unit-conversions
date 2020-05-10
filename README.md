@@ -4,8 +4,15 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/unit-conversions/run-tests?label=tests)](https://github.com/spatie/unit-conversions/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/unit-conversions.svg?style=flat-square)](https://packagist.org/packages/spatie/unit-conversions)
 
+This package contains various unit conversions. Right now, only kg to lbs is supported.
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
+Here's how to use it:
+
+```php
+use Spatie\UnitConversions\Weight;
+
+Weight::fromKilograms(100)->toLbs(); // returns 220.4623;
+```
 
 ## Installation
 
@@ -17,9 +24,10 @@ composer require spatie/unit-conversions
 
 ## Usage
 
-``` php
-$skeleton = new Spatie\Skeleton();
-echo $skeleton->echoPhrase('Hello, Spatie!');
+#### From kg to lbs
+
+```php
+Spatie\UnitConversions\Weight::fromKilograms(100)->toLbs(); // returns 220.4623;
 ```
 
 ## Testing
