@@ -10,8 +10,8 @@ class WeightTest extends TestCase
     /** @test */
     public function it_can_convert_kilograms_to_lbs()
     {
-        $lbs = Weight::fromKilograms(100)->toLbs();
+        $carats = Weight::fromGramToCarat(15);
 
-        $this->assertEquals(220.4623, $lbs);
+        $this->assertEquals(75, $carats);
     }
 }
