@@ -20,4 +20,9 @@ class Temperature
     {
         return ($this->celsius * 1.8) + 32;
     }
+
+    public function toKelvin(): float
+    {
+        return $this->celsius + 273.15;
+    }
 }
