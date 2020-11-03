@@ -13,8 +13,6 @@ class TemperatureTest extends TestCase
         $fahrenheit = Temperature::fromCelsius(100)->toFahrenheit();
 
         $this->assertEquals(212, $fahrenheit);
-
-        $this->assertTrue(false);
     }
 
     /** @test */
