@@ -20,7 +20,6 @@
     },
     "require-dev": {
         "pestphp/pest": "^1.22",
-        "phpunit/phpunit": "^9.4"
     },
     "autoload": {
         "psr-4": {
@@ -33,8 +32,8 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage-html coverage"
     },
     "config": {
         "sort-packages": true,
