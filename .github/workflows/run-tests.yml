@@ -35,8 +35,8 @@ jobs:
 
       - name: Execute tests on Ubuntu OS
         if: matrix.operating-system == 'ubuntu-latest'
-        run: XDEBUG_MODE=coverage vendor/bin/phpunit
+        run: XDEBUG_MODE=coverage vendor/bin/pest
 
       - name: Execute tests on Windows OS
         if: matrix.operating-system == 'windows-latest'
-        run: vendor/bin/phpunit
+        run: vendor/bin/pest
