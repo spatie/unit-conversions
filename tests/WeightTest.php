@@ -2,7 +2,6 @@
 
 namespace Spatie\UnitConversions\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Spatie\UnitConversions\Weight;
 
 it('can convert kilograms to lbs', function () {
