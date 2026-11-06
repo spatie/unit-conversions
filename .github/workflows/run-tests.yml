@@ -6,37 +6,49 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        php: [8.1, 8.0, 7.4]
+        php: ['8.6', '8.5', '8.1', '8.0', '7.4']
         dependency-version: [prefer-lowest, prefer-stable]
 
     name: P${{ matrix.php }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-          coverage: none
+          coverage: xdebug
+          tools: composer:v2
 
       - name: Setup Problem Matches
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+      - name: Select modern test tooling
+        if: matrix.php == '8.5' || matrix.php == '8.6'
+        run: composer require --dev "pestphp/pest:^5.3" --no-update --no-interaction
+
       - name: Install dependencies
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
-      - name: Execute tests on Ubuntu OS
-        if: matrix.operating-system == 'ubuntu-latest'
-        run: XDEBUG_MODE=coverage vendor/bin/pest
+      - name: Report runtime and test tooling
+        run: |
+          php --version
+          composer show pestphp/pest
+          composer show phpunit/phpunit
 
-      - name: Execute tests on Windows OS
-        if: matrix.operating-system == 'windows-latest'
-        run: vendor/bin/pest
+      - name: Migrate test configuration for modern PHPUnit
+        if: matrix.php == '8.5' || matrix.php == '8.6'
+        run: vendor/bin/pest --migrate-configuration
+
+      - name: Execute tests
+        env:
+          XDEBUG_MODE: coverage
+        run: vendor/bin/pest ${{ (matrix.php == '8.5' || matrix.php == '8.6') && '--display-all-issues' || '' }}
