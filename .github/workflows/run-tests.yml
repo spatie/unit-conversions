@@ -16,14 +16,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-          coverage: none
+          coverage: xdebug
           tools: composer:v2
 
       - name: Setup Problem Matches
@@ -49,4 +49,6 @@ jobs:
         run: vendor/bin/pest --migrate-configuration
 
       - name: Execute tests
+        env:
+          XDEBUG_MODE: coverage
         run: vendor/bin/pest ${{ (matrix.php == '8.5' || matrix.php == '8.6') && '--display-all-issues' || '' }}
